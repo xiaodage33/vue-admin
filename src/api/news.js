@@ -38,4 +38,39 @@ export function GetCategory(data){
     })
 }
  
+/**删除分类**/
+export function DeleteCategory(data){
+    return service.request({
+        method: "post",
+        url: "/news/deleteCategory/",
+        data
+        //data：data 左边的变量名key，后接收
+    })
+}
+
+/**修改分类**/
+export function EditCategory(data){
+    return service.request({
+        method: "post",
+        url: "/news/editCategory/",
+        data
+        //data：data 左边的变量名key，后接收
+
+
+    })
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
