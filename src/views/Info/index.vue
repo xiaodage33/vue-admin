@@ -7,10 +7,10 @@
                     <div class="warp-content">
                         <el-select v-model="category_value" placeholder="请选择" style="width: 100%;">
                             <el-option
-                                v-for="item in options"
-                                :key="item.value"
-                                :label="item.label"
-                                :value="item.value">
+                                v-for="item in options.category"
+                                :key="item.id"
+                                :label="item.category_name"
+                                :value="item.id">
                             </el-option>
                         </el-select>
                     </div>
@@ -98,8 +98,10 @@
     </div>
 </template>
 <script>
+import { GetCategory } from "../../api/news";
 import DialogInfo from "./dialog/info";
-import { global } from "@/utils/global_V3.0"
+import { global } from "../../utils/global_V3.0"
+import {common } from "../../api/common";
 import { reactive, ref, watch, onMounted } from '@vue/composition-api';
 export default {
     name: 'infoIndex',
@@ -109,22 +111,16 @@ export default {
         /**
          * 数据
          */
+        const {getInfoCategory} =common();
         const dialog_info = ref(false);  // true、false
         const search_key = ref('id');
         const category_value = ref('');
         const date_value = ref('');
         const search_keyWork = ref('');
 
-        const options = reactive([{
-          value: 1,
-          label: '国际信息'
-        }, {
-          value: 2,
-          label: '国内信息'
-        }, {
-          value: 3,
-          label: '行业信息'
-        }]);
+        const options = reactive({
+            category: []
+        });
         // 搜索关键字
         const search_option = reactive([
             { value: "id", label: "ID"},
@@ -182,10 +178,26 @@ export default {
                 id: '1111'
             })
         }
-      
+
         const confirmDelete = (value) => {
             console.log(value)
         }
+
+        const getCategory=()=>{
+            GetCategory({}).then(response =>{
+                let data = response.data.data.data
+                options.category =data
+
+                console.log(data)
+
+
+            })
+
+        }
+        onMounted(()=>{
+            getCategory()
+        })
+
 
         return {
             // ref
