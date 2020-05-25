@@ -9,7 +9,7 @@
                         <div class="category" v-for="firstItem in category.item" :key="firstItem.id">
                             <h4>
                                 <svg-icon icon-class="plus"></svg-icon>
-                                {{ firstItem.category_name}}
+                                {{ firstItem.category_name }}
                                 <div class="button-group">
                                     <el-button size="mini" type="danger" round>编辑</el-button>
                                     <el-button size="mini" type="success" round>添加子级</el-button>
@@ -18,7 +18,7 @@
                             </h4>
                             <ul v-if="firstItem.children">
                                 <li v-for="childrenItem in firstItem.children" :key="childrenItem.id">
-                                    {{ childrenItem.category_name}}
+                                    {{ childrenItem.category_name }}
                                     <div class="button-group">
                                         <el-button size="mini" type="danger" round>编辑</el-button>
                                         <el-button size="mini" round>删除</el-button>
@@ -112,6 +112,7 @@ export default {
             GetCategory({}).then(response => {
                 let data = response.data.data.data
                 category.item = data
+
             }).catch(error => {
 
             })
